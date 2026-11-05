@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luigi Trading Playbook · Presentación</title>
+<meta name="description" content="La app y el radar, en menos de 3 minutos.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#1b1109">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Luigi Trading Playbook">
+<meta property="og:description" content="La app y el radar, en menos de 3 minutos.">
+<meta property="og:image" content="https://elrecreodeadanzonat-glitch.github.io/luigi-presentacion/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://elrecreodeadanzonat-glitch.github.io/luigi-presentacion/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icono-180.png">
+<link rel="apple-touch-icon" href="icono-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+  /* la paleta cálida de la app (la de Ser), en oscuro como la apertura del video */
+  :root{
+    --bg:#1b1109; --surface:#27190f; --ink:#f8ecda; --ink-2:#e0c8aa; --muted:#c09f7d; --line:#3f2b1c;
+    --accent:#f0a070; --accent-ink:#2b1408; --brass:#f2c27b;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0}
+  body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--ink);font:400 17px/1.5 'Atkinson Hyperlegible',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(900px 520px at 78% -12%,rgba(242,194,123,.16),transparent 62%),radial-gradient(760px 460px at -8% 104%,rgba(240,160,112,.13),transparent 62%)}
+  main{position:relative;max-width:1040px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 16px max(32px,env(safe-area-inset-bottom));display:grid;gap:18px}
+  .marca{display:flex;align-items:center;gap:12px;font:700 16px/1 'Bricolage Grotesque',system-ui,sans-serif;color:var(--ink-2)}
+  .marca img{width:40px;height:40px;border-radius:11px;box-shadow:0 8px 24px -10px rgba(240,160,112,.55)}
+  h1{margin:4px 0 6px;font:800 clamp(30px,6.4vw,54px)/1.06 'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.02em;text-wrap:balance}
+  .pantalla{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#120b06;box-shadow:0 30px 80px -30px rgba(0,0,0,.85),0 0 0 1px var(--line)}
+  .pantalla video,.pantalla .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;background:#120b06}
+  .capa{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;padding:16px;background:radial-gradient(60% 70% at 50% 50%,rgba(18,11,6,.45),rgba(18,11,6,.12))}
+  .play{width:88px;height:88px;border-radius:50%;border:0;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;cursor:pointer;box-shadow:0 16px 40px -12px rgba(240,160,112,.7);transition:transform .15s ease,opacity .2s ease}
+  .play svg{width:40px;height:40px;fill:currentColor;margin-left:5px}
+  .play:disabled{opacity:.35;cursor:default}
+  .play:not(:disabled):hover{transform:scale(1.05)}
+  .play:focus-visible,.otra:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+  .estado{font:700 15px/1.35 'Atkinson Hyperlegible',system-ui,sans-serif;color:var(--ink);text-align:center;max-width:34ch;padding:6px 14px;border-radius:14px;background:rgba(27,17,9,.82)}
+  .barra{width:min(260px,70%);height:6px;border-radius:99px;background:rgba(248,236,218,.18);overflow:hidden}
+  .barra i{display:block;height:100%;width:0;background:var(--brass);border-radius:inherit;transition:width .2s linear}
+  .otra{font:700 15px/1 'Atkinson Hyperlegible',system-ui,sans-serif;padding:12px 18px;border-radius:99px;border:1.5px solid var(--muted);background:transparent;color:var(--ink);cursor:pointer}
+  .listo .barra,.listo .estado{display:none}
+  .pie{margin:2px 0 0;color:var(--muted);font-size:15px}
+  @media (max-width:520px){.play{width:60px;height:60px}.play svg{width:28px;height:28px;margin-left:4px}.estado{font-size:14px}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <header class="marca"><img src="icono-180.png" alt="" width="40" height="40"><span>Luigi Trading Playbook</span></header>
+  <h1>La app y el radar, en menos de 3&nbsp;minutos.</h1>
+  <div class="pantalla">
+    <video id="video" playsinline controls controlslist="nodownload noplaybackrate" disablepictureinpicture preload="auto" poster="poster.jpg" hidden></video>
+    <img class="poster" id="poster" src="poster.jpg" alt="">
+    <div class="capa" id="capa">
+      <button class="play" id="play" type="button" aria-label="Ver el video" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      </button>
+      <div class="estado" id="estado" role="status" aria-live="polite">Preparando el video…</div>
+      <div class="barra" id="barra" aria-hidden="true"><i id="avance"></i></div>
+      <button class="otra" id="otra" type="button" hidden>Intentar de nuevo</button>
+    </div>
+  </div>
+  <p class="pie">Dura 2&nbsp;min 53&nbsp;s · Mejor con sonido</p>
+  <noscript><p class="pie">Para ver el video hay que activar JavaScript en el navegador.</p></noscript>
+</main>
+<script>
+// El video está cifrado (AES-GCM). La llave viaja solo en el link, después del #: el navegador nunca manda esa parte a ningún
+// servidor, así que en este repositorio público el archivo no dice nada sin el link completo.
+(() => {
+  const $ = id => document.getElementById(id);
+  const video = $('video'), poster = $('poster'), capa = $('capa'), play = $('play'), estado = $('estado'), barra = $('barra'), avance = $('avance'), otra = $('otra');
+  const ARCHIVO = 'presentacion.bin';
+  let url = null, andando = false;
+  const decir = t => { estado.textContent = t; };
+  const marcar = p => { avance.style.width = p + '%'; };
+
+  const llaveDelLink = () => {
+    const h = (location.hash || '').replace(/^#/, '').trim();
+    if (!/^[A-Za-z0-9_-]{43}$/.test(h)) return null;
+    try {
+      const b = atob(h.replace(/-/g, '+').replace(/_/g, '/') + '=');
+      const u = new Uint8Array(b.length);
+      for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i);
+      return u.length === 32 ? u : null;
+    } catch (e) { return null; }
+  };
+  const sinLlave = () => {
+    barra.hidden = true; play.hidden = true;
+    decir('Este link está incompleto. Pídele a quien te lo mandó el link completo, con todo lo que va después del #.');
+  };
+
+  async function bajar() {
+    const r = await fetch(ARCHIVO);
+    if (!r.ok) throw new Error('http ' + r.status);
+    const total = Number(r.headers.get('content-length')) || 0;
+    if (!r.body || !r.body.getReader) { const b = new Uint8Array(await r.arrayBuffer()); marcar(100); return b; }
+    const lector = r.body.getReader(), partes = [];
+    let llevo = 0;
+    for (;;) {
+      const { done, value } = await lector.read();
+      if (done) break;
+      partes.push(value); llevo += value.length;
+      if (total) { const p = Math.min(99, Math.floor(llevo * 100 / total)); marcar(p); decir('Preparando el video… ' + p + ' %'); }
+    }
+    const todo = new Uint8Array(llevo);
+    let o = 0;
+    for (const p of partes) { todo.set(p, o); o += p.length; }
+    return todo;
+  }
+
+  async function abrir(bytes, llave) {
+    const k = await crypto.subtle.importKey('raw', llave, 'AES-GCM', false, ['decrypt']);
+    const plano = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes.subarray(0, 12) }, k, bytes.subarray(12));
+    return new Blob([plano], { type: 'video/mp4' });
+  }
+
+  async function empezar() {
+    if (andando || url) return;
+    andando = true;
+    otra.hidden = true; barra.hidden = false; play.hidden = false; marcar(0); decir('Preparando el video…');
+    try {
+      const llave = llaveDelLink();
+      if (!llave) return sinLlave();
+      if (!window.crypto || !crypto.subtle) { barra.hidden = true; decir('Este navegador no puede abrir el video. Ábrelo en Chrome o en Safari.'); return; }
+      let bytes;
+      try { bytes = await bajar(); }
+      catch (e) { barra.hidden = true; decir('No se pudo cargar el video. Revisa la conexión e inténtalo de nuevo.'); otra.hidden = false; return; }
+      decir('Ya casi…');
+      let blob;
+      try { blob = await abrir(bytes, llave); }
+      catch (e) { barra.hidden = true; play.hidden = true; decir('Este link no abre el video. Pídele a quien te lo mandó el link completo.'); otra.hidden = false; return; }
+      bytes = null;
+      url = URL.createObjectURL(blob);
+      video.src = url;
+      marcar(100);
+      capa.classList.add('listo');
+      play.disabled = false;
+      decir('Listo');
+      document.documentElement.dataset.video = 'listo';
+    } finally { andando = false; }
+  }
+
+  play.addEventListener('click', () => {
+    if (play.disabled) return;
+    video.hidden = false; poster.hidden = true; capa.hidden = true;
+    const p = video.play();
+    if (p && p.catch) p.catch(() => {});
+  });
+  otra.addEventListener('click', empezar);
+  window.addEventListener('hashchange', empezar);
+  empezar();
+})();
+</script>
+</body>
+</html>
